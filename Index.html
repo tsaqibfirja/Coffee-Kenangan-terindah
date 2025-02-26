@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kopi Kenangan Terindah</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- My Style -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Alpine.js -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- App -->
+    <script src="src/app.js"></script>
+  </head>
+
+  <body>
+    <!-- Navbar Start -->
+    <nav class="navbar" x-data="{ isBagOpen: false, bag: [], bagCount: 0 }">
+      <a href="#" class="navbar-logo">kenangan<span>Terindah</span>.</a>
+
+      <div class="navbar-nav">
+        <a href="#home">Home</a>
+        <a href="#about">Tentang Kami</a>
+        <a href="#menu">Menu</a>
+        <a href="#products">Produk</a>
+        <a href="#contact">Kontak</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+
+        <!-- Ikon Shopping Bag -->
+        <a href="#" id="shopping-bag-button">
+          <i data-feather="shopping-bag"></i>
+          <span class="cart-count">0</span>
+        </a>
+
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+    </nav>
+    <!-- Modal Shopping Bag -->
+    <div class="shopping-bag">
+      <h2>Keranjang Belanja</h2>
+      <div class="bag-items"></div>
+      <h3 class="total-price">Total: IDR 0</h3>
+
+      <!-- Tombol Cashout di dalam Shopping Bag -->
+      <button id="cashout-btn" class="cashout-button">Cashout</button>
+    </div>
+    <!-- Nafbar End -->
+
+    <!-- Modal Cashout -->
+    <div id="cashout-modal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Cashout</h2>
+
+        <p><strong>Total Harga:</strong> <span id="total-price"></span></p>
+
+        <label>Nama Pembeli</label>
+        <input type="text" id="buyer-name" placeholder="Masukkan nama Anda" />
+
+        <label>No Telepon</label>
+        <input
+          type="tel"
+          id="buyer-phone"
+          placeholder="Masukkan nomor telepon"
+        />
+
+        <label>Alamat</label>
+        <textarea
+          id="buyer-address"
+          placeholder="Masukkan alamat lengkap"
+        ></textarea>
+
+        <label>Metode Pembayaran</label>
+        <select id="payment-method">
+          <option value="bank">Transfer Bank</option>
+          <option value="ewallet">E-Wallet</option>
+          <option value="cod">Cash on Delivery (COD)</option>
+        </select>
+
+        <button id="pay-btn" class="pay-button">Bayar</button>
+      </div>
+    </div>
+
+    <!-- Notifikasi Berhasil -->
+    <div id="success-message" class="hidden">
+      <p>🎉 Pemesanan Berhasil!</p>
+    </div>
+
+    <!-- Hero Section start -->
+    <section class="hero" id="home">
+      <main class="content">
+        <h1>Mari Nikmati Secangkir <span>Kopi</span></h1>
+        <p>
+          "Kopi bukan hanya minuman, tapi teman setia di setiap perjalanan
+          hidup. Nikmati kehangatan rasa yang selalu menemani, tanpa pernah
+          pergi."
+        </p>
+        <a href="#" class="cta">Beli Sekarang</a>
+      </main>
+    </section>
+    <!-- Hero Section end -->
+
+    <!-- About Section start -->
+    <section id="about" class="about">
+      <h2><span>Tentang</span> Kami</h2>
+
+      <div class="row">
+        <div class="about-img">
+          <img
+            src="Imeg/Gambar WhatsApp 2025-02-19 pukul 14.00.39_a13fd199.jpg "
+            alt="Tentang kami"
+          />
+        </div>
+        <div class="content">
+          <h3>Kenapa harus memilih kopi kami?</h3>
+          <p>
+            Di Kopi Kenangan Mantan, setiap tegukan kopi membawa cerita dan
+            kenangan yang tak terlupakan. Kami percaya bahwa kopi bukan sekadar
+            minuman, tetapi juga sahabat setia dalam setiap perjalanan
+            hidup—baik itu manis seperti cinta pertama, pahit seperti kenangan
+            lama, atau creamy seperti harapan baru.
+          </p>
+          <p>
+            Di sini, setiap kunjungan bukan sekadar membeli kopi, tapi juga
+            menciptakan kenangan baru. Karena di Kopi Kenangan Mantan, yang
+            pergi cukup mantanmu—kopinya tetap ada menemani harimu!
+          </p>
+          <p>☕ Kopi dengan Rasa, Kenangan dengan Cerita ☕</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section end -->
+
+    <!-- Menu Section start -->
+    <section id="menu" class="menu">
+      <h2><span>Menu</span> Kami</h2>
+      <p>
+        Nikmati berbagai pilihan kopi yang diracik dengan sepenuh hati dari yang
+        klasik hingga yang kekinian.
+      </p>
+      <div class="menu-container">
+        <!-- produk satu revisi -->
+
+        <!-- Produk 1 -->
+        <div class="menu-card product-card" data-id="1">
+          <div class="product-image">
+            <img
+              src="imeg/Clod Brew & Nitro Coffee.webp"
+              alt="Cold Brew & Nitro Coffee"
+            />
+          </div>
+
+          <h3 class="product-title">Cold Brew & Nitro Coffee</h3>
+          <div class="rating">★★★★★</div>
+          <p class="product-price">
+            IDR 30K <span class="old-price">IDR 55K</span>
+          </p>
+
+          <!-- Ikon Cart -->
+          <div class="product-icons">
+            <button
+              class="shopping-cart-btn add-to-cart"
+              data-id="1"
+              data-name="Cold Brew & Nitro Coffee"
+              data-price="30000"
+              data-image="imeg/Cold Brew & Nitro Coffee.webp"
+            >
+              <i data-feather="shopping-cart"></i> Add to Bag
+            </button>
+
+            <button class="item-detail-button">
+              <i data-feather="eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Produk 2 -->
+        <div class="menu-card product-card" data-id="2">
+          <div class="product-image">
+            <img src="imeg/Chocolate Drink.webp" alt="Chocolate Drink" />
+          </div>
+
+          <h3 class="product-title">Chocolate Drink</h3>
+          <div class="rating">★★★★★</div>
+          <p class="product-price">
+            IDR 30K <span class="old-price">IDR 55K</span>
+          </p>
+
+          <!-- Ikon Cart -->
+          <div class="product-icons">
+            <button
+              class="shopping-cart-btn add-to-cart"
+              data-id="2"
+              data-name="Chocolate Drink"
+              data-price="30000"
+              data-image="imeg/Chocolate Drink.webp"
+            >
+              <i data-feather="shopping-cart"></i> Add to Bag
+            </button>
+
+            <button class="item-detail-button">
+              <i data-feather="eye"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Produk 3 -->
+        <div class="menu-card product-card" data-id="3">
+          <div class="product-image">
+            <img
+              src="imeg/DALL·E 2025-02-23 22.58.38 - A freshly brewed espresso served in a small, elegant ceramic cup. The espresso has a rich, dark brown color with a thick golden crema on top. The cup .webp"
+              alt="Ekspresso"
+            />
+          </div>
+
+          <h3 class="product-title">Ekspresso</h3>
+          <div class="rating">★★★★★</div>
+          <p class="product-price">
+            IDR 30K <span class="old-price">IDR 55K</span>
+          </p>
+
+          <!-- Ikon Cart -->
+          <div class="product-icons">
+            <button
+              class="shopping-cart-btn add-to-cart"
+              data-id="3"
+              data-name="Ekspresso"
+              data-price="30000"
+              data-image="imeg/DALL·E 2025-02-23 22.58.38 - A freshly brewed espresso served in a small, elegant ceramic cup. The espresso has a rich, dark brown color with a thick golden crema on top. The cup .webp"
+            >
+              <i data-feather="shopping-cart"></i> Add to Bag
+            </button>
+
+            <button class="item-detail-button">
+              <i data-feather="eye"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Produk 4 -->
+        <div class="menu-card product-card" data-id="4">
+          <div class="product-image">
+            <img src="imeg/Fresh Soda.webp" alt="Fresh Soda" />
+          </div>
+
+          <h3 class="product-title">Fresh Soda</h3>
+          <div class="rating">★★★★★</div>
+          <p class="product-price">
+            IDR 30K <span class="old-price">IDR 55K</span>
+          </p>
+
+          <!-- Ikon Cart -->
+          <div class="product-icons">
+            <button
+              class="shopping-cart-btn add-to-cart"
+              data-id="4"
+              data-name="Fresh Soda"
+              data-price="30000"
+              data-image="imeg/Fresh Soda.webp"
+            >
+              <i data-feather="shopping-cart"></i> Add to Bag
+            </button>
+
+            <button class="item-detail-button">
+              <i data-feather="eye"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Produk 5 -->
+        <div class="menu-card product-card" data-id="5">
+          <div class="product-image">
+            <img src="imeg/Hojicha Latte.webp" alt="Hojicha Latte" />
+          </div>
+
+          <h3 class="product-title">Hojicha Latte</h3>
+          <div class="rating">★★★★★</div>
+          <p class="product-price">
+            IDR 30K <span class="old-price">IDR 55K</span>
+          </p>
+
+          <!-- Ikon Cart -->
+          <div class="product-icons">
+            <button
+              class="shopping-cart-btn add-to-cart"
+              data-id="5"
+              data-name="Hojicha Latte"
+              data-price="30000"
+              data-image="Imeg/Hojicha Latte.webp"
+            >
+              <i data-feather="shopping-cart"></i> Add to Bag
+            </button>
+
+            <button class="item-detail-button">
+              <i data-feather="eye"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Produk 6 -->
+        <div class="menu-card product-card" data-id="6">
+          <div class="product-image">
+            <img src="imeg/Manual Brew.webp" alt="Manual Brew" />
+          </div>
+
+          <h3 class="product-title">Manual Brew</h3>
+          <div class="rating">★★★★★</div>
+          <p class="product-price">
+            IDR 30K <span class="old-price">IDR 55K</span>
+          </p>
+
+          <!-- Ikon Cart -->
+          <div class="product-icons">
+            <button
+              class="shopping-cart-btn add-to-cart"
+              data-id="6"
+              data-name="Manual Brew"
+              data-price="30000"
+              data-image="imeg/Manual Brew.webp"
+            >
+              <i data-feather="shopping-cart"></i> Add to Bag
+            </button>
+
+            <button class="item-detail-button">
+              <i data-feather="eye"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Produk 7 -->
+        <div class="menu-card product-card" data-id="7">
+          <div class="product-image">
+            <img src="imeg/Milk Tea.webp" alt="Milk Tea" />
+          </div>
+
+          <h3 class="product-title">Milk Tea</h3>
+          <div class="rating">★★★★★</div>
+          <p class="product-price">
+            IDR 30K <span class="old-price">IDR 55K</span>
+          </p>
+
+          <!-- Ikon Cart -->
+          <div class="product-icons">
+            <button
+              class="shopping-cart-btn add-to-cart"
+              data-id="7"
+              data-name="Cold Brew & Nitro Coffee"
+              data-price="30000"
+              data-image="imeg/Milk Tea.webp"
+            >
+              <i data-feather="shopping-cart"></i> Add to Bag
+            </button>
+
+            <button class="item-detail-button">
+              <i data-feather="eye"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Produk 8 -->
+        <div class="menu-card product-card" data-id="8">
+          <div class="product-image">
+            <img src="imeg/Moctails.webp" alt="Moctails.webp" />
+          </div>
+
+          <h3 class="product-title">Moctails.webp</h3>
+          <div class="rating">★★★★★</div>
+          <p class="product-price">
+            IDR 30K <span class="old-price">IDR 55K</span>
+          </p>
+
+          <!-- Ikon Cart -->
+          <div class="product-icons">
+            <button
+              class="shopping-cart-btn add-to-cart"
+              data-id="9"
+              data-name="Moctails"
+              data-price="30000"
+              data-image="imeg/Moctails.webp"
+            >
+              <i data-feather="shopping-cart"></i> Add to Bag
+            </button>
+
+            <button class="item-detail-button">
+              <i data-feather="eye"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Section end -->
+
+    <!-- Products Section start -->
+
+    <section id="products" class="products">
+      <h2><span>Produk Unggulan</span> Kami</h2>
+      <div class="row">
+        <!-- Product Card -->
+
+        <!-- Produk 2 -->
+        <div class="menu-card product-card" data-id="2">
+          <div class="product-image">
+            <img src="imeg/Pastry.webp" alt="Pastry" />
+          </div>
+
+          <h3 class="product-title">Cold Brew & Nitro Coffee</h3>
+          <div class="rating">★★★★★</div>
+          <p class="product-price">
+            IDR 30K <span class="old-price">IDR 55K</span>
+          </p>
+
+          <!-- Ikon Cart -->
+          <div class="product-icons">
+            <button
+              class="shopping-cart-btn add-to-cart"
+              data-id="2"
+              data-name="Pastry"
+              data-price="30000"
+              data-image="imeg/Pastry.webp"
+            >
+              <i data-feather="shopping-cart"></i> Add to Bag
+            </button>
+
+            <button class="item-detail-button">
+              <i data-feather="eye"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Produk 2 -->
+        <div class="menu-card product-card" data-id="2">
+          <div class="product-image">
+            <img src="imeg/Pastry.webp" alt="Pastry" />
+          </div>
+
+          <h3 class="product-title">Cold Brew & Nitro Coffee</h3>
+          <div class="rating">★★★★★</div>
+          <p class="product-price">
+            IDR 30K <span class="old-price">IDR 55K</span>
+          </p>
+
+          <!-- Ikon Cart -->
+          <div class="product-icons">
+            <button
+              class="shopping-cart-btn add-to-cart"
+              data-id="2"
+              data-name="Pastry"
+              data-price="30000"
+              data-image="imeg/Pastry.webp"
+            >
+              <i data-feather="shopping-cart"></i> Add to Bag
+            </button>
+
+            <button class="item-detail-button">
+              <i data-feather="eye"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Produk 2 -->
+        <div class="menu-card product-card" data-id="2">
+          <div class="product-image">
+            <img src="imeg/Pastry.webp" alt="Pastry" />
+          </div>
+
+          <h3 class="product-title">Cold Brew & Nitro Coffee</h3>
+          <div class="rating">★★★★★</div>
+          <p class="product-price">
+            IDR 30K <span class="old-price">IDR 55K</span>
+          </p>
+
+          <!-- Ikon Cart -->
+          <div class="product-icons">
+            <button
+              class="shopping-cart-btn add-to-cart"
+              data-id="2"
+              data-name="Pastry"
+              data-price="30000"
+              data-image="imeg/Pastry.webp"
+            >
+              <i data-feather="shopping-cart"></i> Add to Bag
+            </button>
+
+            <button class="item-detail-button">
+              <i data-feather="eye"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Produk 2 -->
+        <div class="menu-card product-card" data-id="2">
+          <div class="product-image">
+            <img src="imeg/Pastry.webp" alt="Pastry" />
+          </div>
+
+          <h3 class="product-title">Cold Brew & Nitro Coffee</h3>
+          <div class="rating">★★★★★</div>
+          <p class="product-price">
+            IDR 30K <span class="old-price">IDR 55K</span>
+          </p>
+
+          <!-- Ikon Cart -->
+          <div class="product-icons">
+            <button
+              class="shopping-cart-btn add-to-cart"
+              data-id="2"
+              data-name="Pastry"
+              data-price="30000"
+              data-image="imeg/Pastry.webp"
+            >
+              <i data-feather="shopping-cart"></i> Add to Bag
+            </button>
+
+            <button class="item-detail-button">
+              <i data-feather="eye"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Section end -->
+
+    <!-- Contact Section strat -->
+    <section id="contact" class="contact">
+      <h2><span>Butuh</span> Bantuan?</h2>
+      <p>
+        Jangan ragu untuk menghubungi kami! Kami siap membantu Anda dengan
+        segala pertanyaan dan kebutuhan Anda.
+      </p>
+
+      <div class="row">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d90935.52593475205!2d107.56075374672221!3d-6.903271949136317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e6398252477f%3A0x146a1f93d3e815b2!2sBandung%2C%20Kota%20Bandung%2C%20Jawa%20Barat!5e1!3m2!1sid!2sid!4v1740022277646!5m2!1sid!2sid"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="map"
+        ></iframe>
+
+        <form action="">
+          <div class="input-grup">
+            <i data-feather="user"></i>
+            <input type="text" placeholder="nama" />
+          </div>
+          <div class="input-grup">
+            <i data-feather="mail"></i>
+            <input type="text" placeholder="mail" />
+          </div>
+          <div class="input-grup">
+            <i data-feather="phone"></i>
+            <input type="text" placeholder="no hp" />
+          </div>
+          <button type="submit" class="btn">Kirim pesan</button>
+        </form>
+      </div>
+    </section>
+    <!-- Contact Section end -->
+
+    <!-- Footer start -->
+    <footer>
+      <div class="socials">
+        <a href="#"><i data-feather="instagram"></i></a>
+        <a href="#"><i data-feather="facebook"></i></a>
+        <a href="#"><i data-feather="twitter"></i></a>
+      </div>
+
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#about">Tentang</a>
+        <a href="#menu">Menu</a>
+        <a href="#contact">kontak</a>
+      </div>
+
+      <div class="credit">
+        <p>Created By <a href="">tsaqibfirja</a>. | &copy; 2025.</p>
+      </div>
+    </footer>
+    <!-- Footer end -->
+
+    <!-- Modal Box Item Detail start -->
+
+    <!-- Modal -->
+    <!-- Modal (Hanya satu untuk semua produk) -->
+    <div class="modal" id="item-detail-modal">
+      <div class="modal-container">
+        <a href="#" id="close-modal"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img id="modal-image" src="" alt="Product Image" />
+          <div class="product-content">
+            <h3 id="modal-title"></h3>
+            <p id="modal-description"></p>
+            <div class="product-stars" id="modal-stars"></div>
+            <div class="product-price">
+              IDR <span id="modal-price"></span>
+              <span class="old-price" id="modal-old-price"></span>
+            </div>
+            <a href="#" class="add-to-cart">
+              <i data-feather="shopping-cart"></i> <span>add to cart</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Box Item Detail end -->
+
+    <!-- Feather Icons -->
+    <script>
+      feather.replace();
+    </script>
+
+    <!-- My Javasscript -->
+    <script src="js/script.js"></script>
+
+    <!--  -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+  </body>
+</html>
